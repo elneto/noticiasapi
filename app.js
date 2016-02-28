@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var utils = require("./utils");
 
 mongoose.connect('mongodb://localhost:27017/noti',  {server:{auto_reconnect:true}});
 var Entrada = mongoose.model('Entrada', require('./entrada'));
@@ -17,7 +18,8 @@ app.get('/', function (req, res, next){
 });
 
 app.get('/noticias', function (req, res, next){
-	Entrada.find({}, function (err, docs) {
+	Entrada.find({}).sort({date:-1}).exec(function (err, docs) {
+		if (err) return utils.handleError(err);
         res.json(docs);
     });
 });
