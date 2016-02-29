@@ -13,6 +13,13 @@ app.use(function(req, res, next) {
   next();
  });
 
+app.get('/noticias/:id', function (req, res) {
+  Entrada.find({_id:req.params.id }).exec(function (err, doc) {
+		if (err) return utils.handleError(err);
+        res.json(doc);
+    });
+});
+
 app.get('/', function (req, res, next){
 	res.send("<a href='/noticias'>Mostrar noticias</a>");
 });
