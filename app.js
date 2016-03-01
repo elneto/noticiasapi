@@ -17,7 +17,15 @@ app.get('/noticias/:id', function (req, res) {
   Entrada.find({_id:req.params.id }).exec(function (err, doc) {
 		if (err) return utils.handleError(err);
         res.json(doc);
-    });
+   });
+});
+
+app.get('/noticias/tuit/:id', function (req, res) {
+  Entrada.find({_id:req.params.id }).exec(function (err, doc) {
+		if (err) return utils.handleError(err);
+	  
+	  res.send(doc[0].title + ' ' + doc[0].link);
+   });
 });
 
 app.get('/', function (req, res, next){
